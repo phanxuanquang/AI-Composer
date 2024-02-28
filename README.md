@@ -1,6 +1,7 @@
 # 0. Overview
 Are you tired of the tedious process of copy-pasting and formatting text from ChatGPT or other AI chatbots into Microsoft Word? Or perhaps you find yourself wrestling with the challenge of transforming your ideas into well-composed content?
 Imagine a solution where chatbots seamlessly serve as your personal content composer, directly integrated into Microsoft Word. No more copy-paste hassles, no more formatting struggles – just effortless content creation at your fingertips. Let's make the most of chatbots by bringing them into the heart of your document creation process with my **AI Composer** plugin!
+[![Watch the video](https://img.youtube.com/vi/aIx7fgM77Hw/maxresdefault.jpg)](https://youtu.be/aIx7fgM77Hw)
 # 1. Installation
 
 ### Step 1: Get Gemini API key:

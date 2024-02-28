@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-using Word = Microsoft.Office.Interop.Word;
-using Office = Microsoft.Office.Core;
-using Microsoft.Office.Tools.Word;
+﻿using Markdig;
 using Microsoft.Office.Core;
-using System.Windows.Forms;
-using Markdig;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AI_Composer
 {
-    public partial class ThisAddIn
+    public partial class GeminiComposer
     {
         private void ActivateGemini(object sender, System.EventArgs e)
         {
@@ -133,7 +127,7 @@ namespace AI_Composer
         {
             this.Startup += new System.EventHandler(ActivateGemini);
         }
-        
+
         #endregion
     }
 }

@@ -15,7 +15,7 @@ namespace AI_Composer {
     /// 
     [Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(0)]
     [global::System.Security.Permissions.PermissionSetAttribute(global::System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
-    public sealed partial class ThisAddIn : Microsoft.Office.Tools.AddInBase {
+    public sealed partial class GeminiComposer : Microsoft.Office.Tools.AddInBase {
         
         internal Microsoft.Office.Tools.CustomTaskPaneCollection CustomTaskPanes;
         
@@ -30,7 +30,7 @@ namespace AI_Composer {
         /// 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public ThisAddIn(global::Microsoft.Office.Tools.Word.ApplicationFactory factory, global::System.IServiceProvider serviceProvider) : 
+        public GeminiComposer(global::Microsoft.Office.Tools.Word.ApplicationFactory factory, global::System.IServiceProvider serviceProvider) : 
                 base(factory, serviceProvider, "AddIn", "ThisAddIn") {
             Globals.Factory = factory;
         }
@@ -42,7 +42,7 @@ namespace AI_Composer {
         protected override void Initialize() {
             base.Initialize();
             this.Application = this.GetHostItem<Microsoft.Office.Interop.Word.Application>(typeof(Microsoft.Office.Interop.Word.Application), "Application");
-            Globals.ThisAddIn = this;
+            Globals.GeminiComposer = this;
             global::System.Windows.Forms.Application.EnableVisualStyles();
             this.InitializeCachedData();
             this.InitializeControls();
@@ -180,19 +180,19 @@ namespace AI_Composer {
         private Globals() {
         }
         
-        private static ThisAddIn _ThisAddIn;
+        private static GeminiComposer _GeminiComposer;
         
         private static global::Microsoft.Office.Tools.Word.ApplicationFactory _factory;
         
         private static ThisRibbonCollection _ThisRibbonCollection;
         
-        internal static ThisAddIn ThisAddIn {
+        internal static GeminiComposer GeminiComposer {
             get {
-                return _ThisAddIn;
+                return _GeminiComposer;
             }
             set {
-                if ((_ThisAddIn == null)) {
-                    _ThisAddIn = value;
+                if ((_GeminiComposer == null)) {
+                    _GeminiComposer = value;
                 }
                 else {
                     throw new System.NotSupportedException();

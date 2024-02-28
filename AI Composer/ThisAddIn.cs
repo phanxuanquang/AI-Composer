@@ -23,10 +23,24 @@ namespace AI_Composer
             try
             {
                 MsoControlType buttonControlType = MsoControlType.msoControlButton;
-
                 CommandBar commandBar = Application.CommandBars["Text"];
-                CommandBarButton GeminiButton = (CommandBarButton)commandBar.Controls.Add(buttonControlType, Type.Missing, Type.Missing, Type.Missing, true);
+                foreach(var buttonControl in commandBar.Controls)
+                {
+                    try
+                    {
+                        CommandBarButton btn = (CommandBarButton)buttonControl;
+                        if (btn.Caption == "AI Composer")
+                        {
+                            return;
+                        }
+                    }
+                    catch
+                    {
+                        
+                    }
+                }
 
+                CommandBarButton GeminiButton = (CommandBarButton)commandBar.Controls.Add(buttonControlType, Type.Missing, Type.Missing, Type.Missing, true);
                 GeminiButton.Style = MsoButtonStyle.msoButtonIconAndCaption;
                 GeminiButton.FaceId = 31;
                 GeminiButton.Caption = "AI Composer";

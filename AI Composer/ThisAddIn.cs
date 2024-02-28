@@ -55,7 +55,6 @@ namespace AI_Composer
 
         private void GeminiComposer_Activate(CommandBarButton Button, ref bool CancelDefault)
         {
-            MessageBox.Show(Application.Selection.Text);
             if (Application.Selection == null || Application.Selection.Text.Trim() == String.Empty)
             {
                 MessageBox.Show("Please select some text for the query context.", "Reminder", MessageBoxButtons.OK, MessageBoxIcon.Warning);

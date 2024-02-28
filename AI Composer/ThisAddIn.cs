@@ -1,5 +1,6 @@
 ﻿using Markdig;
 using Microsoft.Office.Core;
+using Microsoft.Office.Interop.Word;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -8,44 +9,31 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Task = System.Threading.Tasks.Task;
 
 namespace AI_Composer
 {
     public partial class GeminiComposer
     {
+        CommandBarButton GeminiButton;
         private void ActivateGemini(object sender, System.EventArgs e)
         {
-            Integrate_GeminiComposer();
-        }
-
-        private void Integrate_GeminiComposer()
-        {
+            string buttonName = "AI Composer";
             try
             {
-                MsoControlType buttonControlType = MsoControlType.msoControlButton;
                 CommandBar commandBar = Application.CommandBars["Text"];
-                foreach(var buttonControl in commandBar.Controls)
+
+                GeminiButton = FindButtonByName(commandBar, buttonName);
+                if (GeminiButton == null)
                 {
-                    try
-                    {
-                        CommandBarButton btn = (CommandBarButton)buttonControl;
-                        if (btn.Caption == "AI Composer")
-                        {
-                            return;
-                        }
-                    }
-                    catch
-                    {
-                        
-                    }
+                    GeminiButton = (CommandBarButton)commandBar.Controls.Add(MsoControlType.msoControlButton, Type.Missing, Type.Missing, Type.Missing, true);
+                    GeminiButton.Style = MsoButtonStyle.msoButtonIconAndCaption;
+                    GeminiButton.FaceId = 31;
+                    GeminiButton.Caption = buttonName;
                 }
 
-                CommandBarButton GeminiButton = (CommandBarButton)commandBar.Controls.Add(buttonControlType, Type.Missing, Type.Missing, Type.Missing, true);
-                GeminiButton.Style = MsoButtonStyle.msoButtonIconAndCaption;
-                GeminiButton.FaceId = 31;
-                GeminiButton.Caption = "AI Composer";
-
                 GeminiButton.Click += new _CommandBarButtonEvents_ClickEventHandler(GeminiComposer_Activate);
+
             }
             catch (Exception ex)
             {
@@ -53,8 +41,21 @@ namespace AI_Composer
             }
         }
 
-        private void GeminiComposer_Activate(CommandBarButton Ctrl, ref bool CancelDefault)
+        private CommandBarButton FindButtonByName(CommandBar commandBar, string buttonName)
         {
+            foreach (CommandBarControl control in commandBar.Controls)
+            {
+                if (control is CommandBarButton && control.Caption == buttonName)
+                {
+                    return (CommandBarButton)control;
+                }
+            }
+            return null;
+        }
+
+        private void GeminiComposer_Activate(CommandBarButton Button, ref bool CancelDefault)
+        {
+            MessageBox.Show(Application.Selection.Text);
             if (Application.Selection == null || Application.Selection.Text.Trim() == String.Empty)
             {
                 MessageBox.Show("Please select some text for the query context.", "Reminder", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -77,7 +78,7 @@ namespace AI_Composer
             try
             {
                 Input input = JsonConvert.DeserializeObject<Input>("{\"contents\":[{\"parts\":[{\"text\":\"Hello.\"}]}],\"safetySettings\":[{\"category\":\"HARM_CATEGORY_DANGEROUS_CONTENT\",\"threshold\":\"BLOCK_ONLY_HIGH\"}],\"generationConfig\":{\"stopSequences\":[\"Title\"],\"temperature\":0.5,\"maxOutputTokens\":4096,\"topP\":0.8,\"topK\":20}}");
-                input.SetQuery($"Assume that you are a expert in copywriting field with over 20 years of experience. Considering the topic and the request in my input, help me to compose the content accordingly. The input is: '{Application.Selection.Text}'");
+                input.SetQuery($"You are a expert in content composition with over 20 years of experience. Considerthe topic and the request in my input, and compose the content accordingly. The input is: '{Application.Selection.Text}'");
 
                 Output output = null;
                 Task.Run(async () =>

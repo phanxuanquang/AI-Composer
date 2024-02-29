@@ -1,6 +1,9 @@
-﻿using Markdig;
+﻿using DocumentFormat.OpenXml.ExtendedProperties;
+using DocumentFormat.OpenXml.Office2016.Excel;
+using Markdig;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
+using Microsoft.VisualStudio.Services.Common;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -9,7 +12,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 using Task = System.Threading.Tasks.Task;
+
 
 namespace AI_Composer
 {
@@ -60,7 +65,6 @@ namespace AI_Composer
                 MessageBox.Show("Please select some text for the query context.", "Reminder", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             string apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY");
 
             if (string.IsNullOrEmpty(apiKey))
@@ -69,7 +73,7 @@ namespace AI_Composer
 
                 if (result == DialogResult.OK)
                 {
-                    Process.Start("https://github.com/phanxuanquang/Gemini-Writter");
+                    Process.Start("https://github.com/phanxuanquang/AI-Composer");
                 }
                 return;
             }
@@ -77,7 +81,7 @@ namespace AI_Composer
             try
             {
                 Input input = JsonConvert.DeserializeObject<Input>("{\"contents\":[{\"parts\":[{\"text\":\"Hello.\"}]}],\"safetySettings\":[{\"category\":\"HARM_CATEGORY_DANGEROUS_CONTENT\",\"threshold\":\"BLOCK_ONLY_HIGH\"}],\"generationConfig\":{\"stopSequences\":[\"Title\"],\"temperature\":0.5,\"maxOutputTokens\":4096,\"topP\":0.8,\"topK\":20}}");
-                input.SetQuery($"You are a expert in content composition with over 20 years of experience. Considerthe topic and the request in my input, and compose the content accordingly. The input is: '{Application.Selection.Text}'");
+                input.SetQuery($"You are a expert in content composition with over 20 years of experience. Consider the topic and the request in my input, and compose the content accordingly. The input is: '{Application.Selection.Text}'");
 
                 Output output = null;
                 Task.Run(async () =>
@@ -87,12 +91,16 @@ namespace AI_Composer
 
                 if (output != null)
                 {
-                    Application.Selection.Text += "\n" + AsPlainText(output.candidates.FirstOrDefault().content.parts.FirstOrDefault().text);
+                    Application.Selection.Text = AsPlainText(output.candidates.FirstOrDefault().content.parts.FirstOrDefault().text);
+                }
+                else
+                {
+                    MessageBox.Show("Error why composing content. Please try again after 1 minute.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -130,7 +138,6 @@ namespace AI_Composer
             var result = Markdown.ToPlainText(markdown, pipeline);
             return result.Trim();
         }
-
         #region VSTO generated code
 
         /// <summary>

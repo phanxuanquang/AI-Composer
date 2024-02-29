@@ -6,14 +6,14 @@ Imagine a solution where chatbots seamlessly serve as your personal content comp
 ### Step 1: Get Gemini API key:
 - [**Google AI Studio**](https://aistudio.google.com/app/apikey) (Google signin may be required)
 ### Step 2: Set the API key as a environment variable:
-Run below command on the Windows Terminal:
+Run below command on the Windows Terminal with the administrator right:
 ```console
-setx GEMINI_API_KEY AIzaSyDTxv-----------------------------
+setx GEMINI_API_KEY AIzaSyDTxv----------------------------- \M
 ```
 Replace "*AIzaSyDTxv-----------------------------*" with your API key.
 
 ### Step 3: Download and run:
-- Download the installer [**HERE**](https://github.com/phanxuanquang/AI-Composer/releases/download/1.0.0/AI.Composer.vsto) and follow its guidance.
+- Download the installer [**HERE**](https://github.com/phanxuanquang/AI-Composer/releases/download/1.0.0/setup.exe) and follow its guidance.
 - Restart your Microsoft Word.
 
 # Usage

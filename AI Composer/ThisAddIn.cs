@@ -1,9 +1,6 @@
-﻿using DocumentFormat.OpenXml.ExtendedProperties;
-using DocumentFormat.OpenXml.Office2016.Excel;
-using Markdig;
+﻿using Markdig;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
-using Microsoft.VisualStudio.Services.Common;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -81,7 +78,7 @@ namespace AI_Composer
             try
             {
                 Input input = JsonConvert.DeserializeObject<Input>("{\"contents\":[{\"parts\":[{\"text\":\"Hello.\"}]}],\"safetySettings\":[{\"category\":\"HARM_CATEGORY_DANGEROUS_CONTENT\",\"threshold\":\"BLOCK_ONLY_HIGH\"}],\"generationConfig\":{\"stopSequences\":[\"Title\"],\"temperature\":0.5,\"maxOutputTokens\":4096,\"topP\":0.8,\"topK\":20}}");
-                input.SetQuery($"You are a expert in content composition with over 20 years of experience. Consider the topic and the request in my input, and compose the content accordingly. The input is: '{Application.Selection.Text}'");
+                input.SetQuery($"You are AI Composer, an expert in content composition with over 20 years of experience. Consider the topic and the request in my input, and compose the content accordingly. The input is: '{Application.Selection.Text}'");
 
                 Output output = null;
                 Task.Run(async () =>

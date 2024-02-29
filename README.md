@@ -4,17 +4,17 @@ Imagine a solution where chatbots seamlessly serve as your personal content comp
 # Installation
 
 ### Step 1: Get Gemini API key:
-- [**Google AI Studio**](https://aistudio.google.com/app/apikey) (Google signin may be required)
+- [**Google AI Studio**](https://aistudio.google.com/app/apikey) (Google signing-in may be required)
+
 ### Step 2: Set the API key as a environment variable:
-Run below command on the Windows Terminal with the administrator right:
+Open **Terminal** or **Windows Powershell** with the administrator right and run the command:
 ```console
 setx GEMINI_API_KEY AIzaSyDTxv----------------------------- \M
 ```
 Replace "*AIzaSyDTxv-----------------------------*" with your API key.
 
-### Step 3: Download and run:
-- Download the installer [**HERE**](https://github.com/phanxuanquang/AI-Composer/releases/download/1.0.0/setup.exe) and follow its guidance.
-(You may need to turn of the Windows Defender temporarily in this step).
+### Step 3: Download and Run:
+- Extract the [**installation package**](https://github.com/phanxuanquang/AI-Composer/releases/download/1.0.0/AI.Composer.zip), run the **setup.exe** file and follow its guidance to install.
 - Restart your Microsoft Word.
 
 # Usage
@@ -24,5 +24,15 @@ Replace "*AIzaSyDTxv-----------------------------*" with your API key.
 ![image](https://i.imgur.com/rQX0MAq.png)
 
 # System Requirements
+- Windows 7 or above
 - Internet connection
 - Microsoft Word 2013 or newer versions
+
+# Installation Troubleshooting:
+- Some devices may require certificate for the installation, they may show the warning as below during the installation:
+
+![image](https://i.imgur.com/Xzl4IrT.png)
+
+- The solution for this case is to install [**my certificate**](https://github.com/phanxuanquang/AI-Composer/releases/download/1.0.0/AI_Composer_Key.pfx) for this application, and put it to Windows's **Trusted Root Certification Authorities** directory as below:
+
+![image](https://i.imgur.com/yR7ANlQ.png)

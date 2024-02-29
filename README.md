@@ -13,7 +13,7 @@ setx GEMINI_API_KEY AIzaSyDTxv----------------------------- \M
 Replace "*AIzaSyDTxv-----------------------------*" with your API key.
 
 ### Step 3: Download and run:
-- Download the installer package [**HERE**](https://github.com/phanxuanquang/AI-Composer/releases/download/1.0.0/AI.Composer.1.0.0.zip), run the "**setup.exe**" file and follow its guidance.
+- Download the installer [**HERE**](https://github.com/phanxuanquang/AI-Composer/releases/download/1.0.0/setup.exe) and follow its guidance.
 - Restart your Microsoft Word.
 
 # Usage

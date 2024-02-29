@@ -85,14 +85,13 @@ namespace AI_Composer
                 {
                     output = await ComposeContentFrom(input, apiKey);
                 }).Wait();
-
-                if (output != null)
+                try
                 {
                     Application.Selection.Text = AsPlainText(output.candidates.FirstOrDefault().content.parts.FirstOrDefault().text);
                 }
-                else
+                catch(Exception ex)
                 {
-                    MessageBox.Show("Error why composing content. Please try again after 1 minute.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error why composing content. Please try again after 1 minute.\nError: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)

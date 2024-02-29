@@ -14,6 +14,7 @@ Replace "*AIzaSyDTxv-----------------------------*" with your API key.
 
 ### Step 3: Download and run:
 - Download the installer [**HERE**](https://github.com/phanxuanquang/AI-Composer/releases/download/1.0.0/setup.exe) and follow its guidance.
+(You may need to turn of the Windows Defender temporarily in this step).
 - Restart your Microsoft Word.
 
 # Usage

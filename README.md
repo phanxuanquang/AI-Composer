@@ -4,7 +4,7 @@ Imagine a solution where chatbots seamlessly serve as your personal content comp
 # Installation
 
 ### Step 1: Get Gemini API key:
-- [**Google AI Studio**](https://aistudio.google.com/app/apikey) (Google signing-in may be required)
+- [**Google AI Studio**](https://aistudio.google.com/app/apikey) (Google account is required)
 
 ### Step 2: Set the API key as a environment variable:
 Open **Terminal** or **Windows Powershell** with the administrator right and run the command:

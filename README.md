@@ -9,7 +9,7 @@ Imagine a solution where chatbots seamlessly serve as your personal content comp
 ### Step 2: Set the API key as a environment variable:
 Open **Terminal** or **Windows Powershell** with the administrator right and run the command:
 ```console
-setx GEMINI_API_KEY AIzaSyDTxv----------------------------- \M
+setx GEMINI_API_KEY AIzaSyDTxv-----------------------------
 ```
 Replace "*AIzaSyDTxv-----------------------------*" with your API key.
 

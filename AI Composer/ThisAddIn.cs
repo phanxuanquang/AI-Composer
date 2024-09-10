@@ -73,19 +73,18 @@ namespace AI_Composer
 
             try
             {
-                var prompt = $"You are AI Composer, an expert in content composition with over 20 years of experience. Consider the topic and the request in my input, and compose the content accordingly. The input is: '{Application.Selection.Text}'";
+                var prompt = $"You are AI Composer, an expert in content composition with over 20 years of experience. Consider the topic and the request in my input, and compose the content accordingly. The input is: '{Application.Selection.Text}'. \nYour content:";
                 var result = string.Empty;
                 Task.Run(async () =>
                 {
                     result = await Generator.GenerateContent(apiKey, prompt, false, CreativityLevel.Medium, GenerativeModel.Gemini_15_Flash);
-                    result = StringTool.AsPlainText(result);
                 }).Wait();
 
                 Application.Selection.Text = result;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error why composing content. Please try again after 1 minute.\nError: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error why composing content. Please try again after 1 minute.\nError: {ex.Message}.{ex.InnerException?.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

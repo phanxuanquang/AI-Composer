@@ -5,6 +5,10 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI Composer", "AI Composer\AI Composer.csproj", "{08B657C1-6F90-4AF8-A466-7C12FA29E37F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenAI", "GenAI\GenAI.csproj", "{99C30E5A-A83D-4D26-A8B8-FF8C91DF36CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{B8023945-12B4-4843-9BE2-741F270A45DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{08B657C1-6F90-4AF8-A466-7C12FA29E37F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08B657C1-6F90-4AF8-A466-7C12FA29E37F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08B657C1-6F90-4AF8-A466-7C12FA29E37F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99C30E5A-A83D-4D26-A8B8-FF8C91DF36CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99C30E5A-A83D-4D26-A8B8-FF8C91DF36CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99C30E5A-A83D-4D26-A8B8-FF8C91DF36CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99C30E5A-A83D-4D26-A8B8-FF8C91DF36CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8023945-12B4-4843-9BE2-741F270A45DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8023945-12B4-4843-9BE2-741F270A45DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8023945-12B4-4843-9BE2-741F270A45DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8023945-12B4-4843-9BE2-741F270A45DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

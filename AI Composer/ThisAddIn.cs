@@ -1,14 +1,10 @@
-﻿using Markdig;
+﻿using GenAI;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Utilities;
 using static System.Net.Mime.MediaTypeNames;
 using Task = System.Threading.Tasks.Task;
 
@@ -20,7 +16,7 @@ namespace AI_Composer
         CommandBarButton GeminiButton;
         private void ActivateGemini(object sender, System.EventArgs e)
         {
-            string buttonName = "AI Composer";
+            string buttonName = "InnoWrite AI";
             try
             {
                 CommandBar commandBar = Application.CommandBars["Text"];
@@ -47,9 +43,9 @@ namespace AI_Composer
         {
             foreach (CommandBarControl control in commandBar.Controls)
             {
-                if (control is CommandBarButton && control.Caption == buttonName)
+                if (control is CommandBarButton button && control.Caption == buttonName)
                 {
-                    return (CommandBarButton)control;
+                    return button;
                 }
             }
             return null;
@@ -77,65 +73,23 @@ namespace AI_Composer
 
             try
             {
-                Input input = JsonConvert.DeserializeObject<Input>("{\"contents\":[{\"parts\":[{\"text\":\"Hello.\"}]}],\"safetySettings\":[{\"category\":\"HARM_CATEGORY_DANGEROUS_CONTENT\",\"threshold\":\"BLOCK_ONLY_HIGH\"}],\"generationConfig\":{\"stopSequences\":[\"Title\"],\"temperature\":0.5,\"maxOutputTokens\":4096,\"topP\":0.8,\"topK\":20}}");
-                input.SetQuery($"You are AI Composer, an expert in content composition with over 20 years of experience. Consider the topic and the request in my input, and compose the content accordingly. The input is: '{Application.Selection.Text}'");
-
-                Output output = null;
+                var prompt = $"You are AI Composer, an expert in content composition with over 20 years of experience. Consider the topic and the request in my input, and compose the content accordingly. The input is: '{Application.Selection.Text}'";
+                var result = string.Empty;
                 Task.Run(async () =>
                 {
-                    output = await ComposeContentFrom(input, apiKey);
+                    result = await Generator.GenerateContent(apiKey, prompt, false, CreativityLevel.Medium, GenerativeModel.Gemini_15_Flash);
+                    result = StringTool.AsPlainText(result);
                 }).Wait();
-                try
-                {
-                    Application.Selection.Text = AsPlainText(output.candidates.FirstOrDefault().content.parts.FirstOrDefault().text);
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show($"Error why composing content. Please try again after 1 minute.\nError: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                Application.Selection.Text = result;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error why composing content. Please try again after 1 minute.\nError: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public async Task<Output> ComposeContentFrom(Input input, string apiKey)
-        {
-            string model = "gemini-1.0-pro";
-            string apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={apiKey}";
-
-            using (var httpClient = new HttpClient())
-            {
-                using (var request = new HttpRequestMessage(new HttpMethod("POST"), apiUrl))
-                {
-                    request.Content = new StringContent(JsonConvert.SerializeObject(input));
-                    request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-
-                    try
-                    {
-                        var response = await httpClient.SendAsync(request);
-                        var res = await response.Content.ReadAsStringAsync();
-                        var output = JsonConvert.DeserializeObject<Output>(res);
-                        return output;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return null;
-                    }
-                }
-            }
-        }
-
-        public string AsPlainText(string markdown)
-        {
-            var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-            var result = Markdown.ToPlainText(markdown, pipeline);
-            return result.Trim();
-        }
         #region VSTO generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
